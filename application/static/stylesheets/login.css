@@ -1,0 +1,45 @@
+.login-form {
+    width: 320px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+}
+
+input[type="text"], input[type="password"]
+{
+    display: block;
+    background: none;
+    text-align: center;
+    width: 200px;
+    border: 2px solid #0ae2f3;
+    margin: 20px auto;
+    padding: 14px 10px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+}
+
+.login-btn {
+    display: block;
+    background: none;
+    width: 120px;
+    border: 2px solid #fe9d07;
+    margin: 20px auto;
+    padding: 14px 10px;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    width: 280px;
+    border-color: #fe9d07;
+}
+
+.login-btn:hover {
+    background: #fe9d07;
+}

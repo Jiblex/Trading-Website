@@ -1,0 +1,43 @@
+<!-- abstracting page layout -->
+{% extends "default-layout.html" %}
+{% block content %}
+    <head>
+        <!-- linking to stylesheet -->
+        <link rel="stylesheet" href="../static/stylesheets/login.css">
+    </head>
+
+    <!-- Login Box -->
+    <form class="login-form" method="POST" action="">
+
+        <!-- Email input -->
+        <!-- Validate field inputs -->
+        {% if form.email.errors %}
+            {{ form.email(class="is-invalid") }}
+            <!-- invalid input case -->
+            <div class="invalid-feedback">
+                {% for error in form.email.errors %}
+                    <span> {{ error }} </span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.email }}
+        {% endif %}
+
+        <!-- Password input -->
+        <!-- Validate field inputs -->
+        {% if form.password.errors %}
+            {{ form.password(class="is-invalid") }}
+            <!-- invalid input case -->
+            <div class="invalid-feedback">
+                {% for error in form.password.errors %}
+                    <span> {{ error }} </span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.password }}
+        {% endif %}
+
+        <!-- Login button -->
+        {{ form.submit_field(class="login-btn") }}
+    </form>
+{% endblock content %}
