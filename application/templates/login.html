@@ -8,7 +8,7 @@
 
     <!-- Login Box -->
     <form class="login-form" method="POST" action="">
-
+         {{ form.hidden_tag() }}
         <!-- Email input -->
         <!-- Validate field inputs -->
         {% if form.email.errors %}

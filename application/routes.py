@@ -1,8 +1,8 @@
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for , flash
 from application import app, db, bcrypt
 from application.forms import SignUpForm, LoginForm
 from application.models import User
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 
 @app.route("/")  # default route
@@ -30,7 +30,7 @@ def signup():
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('home'))
+        return redirect(url_for('login'))
     # attaching the attributed html file and passing in the sign up form
     return render_template("signup.html", title="Sign Up", form=form)
 
@@ -41,8 +41,19 @@ def login():
     form = LoginForm()
     # if form validates, redirect to home
     if form.validate_on_submit():
-        username = User.query.filter_by(email=form.email.data).first()
-        if username and bcrypt.check_password_hash(username.password, form.password.data):
+        # select first user with input email
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user)
             return redirect(url_for('home'))
+        else:
+            flash("Incorrect username or password", 'danger')
     # attaching the attributed html file and passing in the login form
     return render_template("login.html", title="Login", form=form)
+
+
+# page displayed when user logged in so that they don't see login/signup options
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('home'))

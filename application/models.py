@@ -3,7 +3,7 @@ from flask_login import UserMixin
 
 
 # function gets user by user's id, decorator lets extension know this is the function to use to get user by id
-@login_manager.user_loader()
+@login_manager.user_loader
 def load_user(user_id):
     # get user id, casting to int to avoid errors
     return User.query.get(int(user_id))
