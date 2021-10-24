@@ -1,8 +1,8 @@
-from flask import render_template, redirect, url_for , flash
+from flask import render_template, redirect, url_for, flash
 from application import app, db, bcrypt
 from application.forms import SignUpForm, LoginForm
 from application.models import User
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user
 
 
 @app.route("/")  # default route
@@ -23,6 +23,8 @@ def about():
 # sign up page of website, accepts GET, POST requests
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
+    if current_user.is_authenticated:
+        redirect(url_for('home'))
     form = SignUpForm()
     # if form validates, redirect to home
     if form.validate_on_submit():
@@ -38,6 +40,8 @@ def signup():
 # login page of website, accepts GET, POST requests
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        redirect(url_for('home'))
     form = LoginForm()
     # if form validates, redirect to home
     if form.validate_on_submit():
@@ -52,7 +56,7 @@ def login():
     return render_template("login.html", title="Login", form=form)
 
 
-# page displayed when user logged in so that they don't see login/signup options
+# redirects user back to home page when they logout 
 @app.route("/logout")
 def logout():
     logout_user()
