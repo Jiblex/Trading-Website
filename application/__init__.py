@@ -15,5 +15,7 @@ db = SQLAlchemy(app)
 bcrypt = Bcrypt()
 # login manager
 login_manager = LoginManager(app)
+# redirects to login page whenever login is required
+login_manager.login_view = "login"
 
 from application import routes

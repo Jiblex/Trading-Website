@@ -1,19 +1,19 @@
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, request
 from application import app, db, bcrypt
 from application.forms import SignUpForm, LoginForm
 from application.models import User
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 
 
 @app.route("/")  # default route
 @app.route("/home")
-# home page of website
+# home page route
 def home():
     # attaching the attributed html file
-    return render_template("home.html", title="Home")
+    return render_template("index.html", title="Home")
 
 
-# about page of website
+# about page route
 @app.route("/about")
 def about():
     # attaching the attributed html file
@@ -49,7 +49,10 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
-            return redirect(url_for('home'))
+            # if redirected to login, once logged in redirect back to requested page
+            # use get method on dictionary args instead of [key] in case no "next" element
+            requested_page = request.args.get("next")
+            return redirect(requested_page) if requested_page else redirect(url_for('home'))
         else:
             flash("Incorrect username or password", 'danger')
     # attaching the attributed html file and passing in the login form
@@ -61,3 +64,10 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+
+# user account page route
+@app.route("/account")
+@login_required
+def account():
+    return render_template("account.html", title="Account")

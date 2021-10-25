@@ -7,8 +7,7 @@
     background-color: black;
 }
 
-input[type="text"], input[type="password"]
-{
+input[type="text"], input[type="password"] {
     display: block;
     background: none;
     text-align: center;
@@ -42,4 +41,16 @@ input[type="text"]:focus, input[type="password"]:focus {
 
 .login-btn:hover {
     background: #fe9d07;
+}
+
+.links {
+
+}
+
+a {
+    text-decoration: none;
+}
+
+#new-account {
+    margin: 6%;
 }
