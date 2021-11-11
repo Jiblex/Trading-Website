@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, flash, request
 from application import app, db, bcrypt
-from application.forms import SignUpForm, LoginForm
+from application.forms import SignUpForm, LoginForm, UpdateAccountForm
 from application.models import User
 from flask_login import login_user, logout_user, current_user, login_required
 
@@ -59,7 +59,7 @@ def login():
     return render_template("login.html", title="Login", form=form)
 
 
-# redirects user back to home page when they logout 
+# logout route: redirects user to home page
 @app.route("/logout")
 def logout():
     logout_user()
@@ -67,7 +67,20 @@ def logout():
 
 
 # user account page route
-@app.route("/account")
+@app.route("/account", methods=["GET", "POST"])
 @login_required
 def account():
-    return render_template("account.html", title="Account")
+    form = UpdateAccountForm()
+    # upon validation, update user account information using PRG pattern
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.commit()
+        return redirect(url_for("account"))
+    elif request.method == "GET":
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    # getting path for user's profile image
+    profile_image = url_for("static", filename="profile_pics/" + current_user.profile_img)
+    # attaching the attributed html file and passing in user profile image
+    return render_template("account.html", title="Account", form=form, profile_image=profile_image)

@@ -1,7 +1,59 @@
 <!-- abstracting page layout -->
 {% extends "default-layout.html" %}
 {% block content %}
-    <div>
-        <h2> {{ current_user.username }} - Account Settings </h2>
-    </div>
+    <head>
+        <!-- linking to stylesheet -->
+        <link rel="stylesheet" href="../static/stylesheets/account.css">
+    </head>
+
+    <form class="account-info" method="POST" action="">
+        {{ form.hidden_tag() }}
+        <h2 id="settings-label"> {{ current_user.username }} - Account Settings </h2>
+        <div class="info-container">
+
+            <div class="primary-info">
+
+                <!-- Username input -->
+                <!-- Validate field inputs -->
+                {% if form.username.errors %}
+                    {{ form.username(class="is-invalid") }}
+                    <!-- invalid input case -->
+                    <div class="invalid-feedback">
+                        {% for error in form.username.errors %}
+                            <span> {{ error }} </span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.username }}
+                {% endif %}
+
+                <!-- Email input -->
+                <!-- Validate field inputs -->
+                {% if form.email.errors %}
+                    {{ form.email(class="is-invalid") }}
+                    <!-- invalid input case -->
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span> {{ error }} </span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email }}
+                {% endif %}
+
+                <!-- Update button -->
+                {{ form.submit_field(class="update-btn") }}
+            </div>
+
+
+            <div class="secondary-info">
+
+            </div>
+            <div class="payment-info">
+
+            </div>
+        </div>
+    </form>
+
 {% endblock content %}
+

@@ -1,0 +1,114 @@
+.account-info {
+    width: 80%;
+    height: 70%;
+    position: absolute;
+    left: 10%;
+}
+
+#settings-label {
+    color: white;
+    text-align: center;
+}
+
+.info-container {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    margin: 6%;
+}
+
+.primary-info {
+    width: 30%;
+    height: 70%;
+    top: 30%;
+    border: 1px solid green;
+    position: relative;
+    transition: 0.3s;
+}
+
+.secondary-info {
+    width: 30%;
+    height: 60%;
+    margin-left: 6%;
+    top: 15%;
+    border: 1px solid red;
+    position: relative;
+}
+
+.payment-info {
+    width: 30%;
+    height: 40%;
+    top: 25%;
+    margin-left: 6%;
+    border: 1px solid green;
+    position: relative;
+}
+
+.primary-info:hover {
+    border: 10px solid green;
+}
+
+input[type="text"], input[type="password"] {
+    display: block;
+    background: none;
+    text-align: center;
+    width: 200px;
+    border: 2px solid #0ae2f3;
+    margin: 20px auto;
+    padding: 14px 10px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    width: 280px;
+    border-color: #fe9d07;
+}
+
+
+
+
+
+
+
+.update-btn {
+    display: block;
+    background: none;
+    border: none;
+    position: relative;
+    bottom: -51%;
+    width: 100%;
+    margin: 20px auto;
+    padding: 14px 10px;
+    color: white;
+    transition: ease-out 0.3s;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.update-btn:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.update-btn:before {
+    transition: 0.5s all ease;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    opacity: 0;
+    content: "";
+    background-color: green;
+}
+
+.update-btn:hover:before {
+    transition: 0.5s all ease;
+    left: 0;
+    right: 0;
+    opacity: 1;
+    z-index: -1;
+}
